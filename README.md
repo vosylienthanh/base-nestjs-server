@@ -15,7 +15,7 @@ nest new <project_name> --strict
 Run this command on windows
 
 ```bash
-new-item -itemtype junction -path "./node_modules" -target "g:/personal/projects/public/node_modules/server/node_modules"
+new-item -itemtype junction -path "./node_modules" -target "../lib/server/node_modules"
 ```
 
 ## Setup typeORM
