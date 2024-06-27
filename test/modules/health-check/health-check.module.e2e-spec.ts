@@ -9,16 +9,14 @@ describe('HealthCheckController (e2e)', () => {
     app = await generateTestApp();
   });
 
-  it('GET /kmo-service/health', () => {
+  it('GET /api/health', () => {
     return request(app.getHttpServer())
-      .get('/kmo-service/health')
+      .get('/api/health')
       .expect(200)
       .expect('OK');
   });
 
-  it('GET /kmo-service/health/memory', () => {
-    return request(app.getHttpServer())
-      .get('/kmo-service/health/memory')
-      .expect(200);
+  it('GET /api/health/memory', () => {
+    return request(app.getHttpServer()).get('/api/health/memory').expect(200);
   });
 });
