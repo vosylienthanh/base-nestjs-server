@@ -1,6 +1,6 @@
 import { Global } from '@nestjs/common';
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import * as dotenv from 'dotenv';
+import { DataSourceOptions } from 'typeorm';
 
 @Global()
 export class ConfigService {
@@ -59,7 +59,11 @@ export class ConfigService {
     return Number(process.env.POSTGRES_CONNECTION_TIMEOUT);
   }
 
-  get POSTGRES_CONFIG(): TypeOrmModuleOptions {
+  get DATABASE_SSL(): boolean {
+    return process.env.DATABASE_SSL === 'true';
+  }
+
+  get POSTGRES_CONFIG(): DataSourceOptions {
     return {
       type: 'postgres',
       host: this.DATABASE_HOST,
@@ -72,9 +76,16 @@ export class ConfigService {
       synchronize: false,
       migrationsRun: true,
       logging: false,
-      migrations: [__dirname + '/../migrations/**/*{.ts,.js}'],
-      keepConnectionAlive: true,
+      migrations: [__dirname + '/../../migrations/**/*{.ts,.js}'],
       connectTimeoutMS: this.POSTGRES_CONNECTION_TIMEOUT,
+      ssl: this.DATABASE_SSL,
+      extra: this.DATABASE_SSL
+        ? {
+            ssl: {
+              rejectUnauthorized: false,
+            },
+          }
+        : null,
     };
   }
 }
