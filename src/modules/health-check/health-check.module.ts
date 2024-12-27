@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
-import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerModule } from '@nestjs/throttler';
+import { ThrottlerBehindProxyGuard } from '../../guards/throttle.guard';
 import { HealthCheckController } from './health-check.controller';
 
 @Module({
@@ -8,7 +9,7 @@ import { HealthCheckController } from './health-check.controller';
     ThrottlerModule.forRoot([
       {
         limit: 1,
-        ttl: 60000,
+        ttl: 10000,
       },
     ]),
   ],
@@ -16,7 +17,7 @@ import { HealthCheckController } from './health-check.controller';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard,
+      useClass: ThrottlerBehindProxyGuard,
     },
   ],
 })
