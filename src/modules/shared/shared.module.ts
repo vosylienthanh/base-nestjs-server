@@ -11,7 +11,7 @@ import { HelperModule } from '../helper/helper.module';
       useFactory: async (configService: ConfigService) => {
         return {
           ...configService.POSTGRES_CONFIG,
-          keepConnectionAlive: true,
+          // keepConnectionAlive: true,
         };
       },
       imports: [ConfigServiceModule],

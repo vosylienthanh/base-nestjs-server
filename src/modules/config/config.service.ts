@@ -5,10 +5,11 @@ import { DataSourceOptions } from 'typeorm';
 @Global()
 export class ConfigService {
   constructor() {
-    let path = `${__dirname}/../../../.env`;
-    if (this.NODE_ENV) {
-      path = `${path}.${this.NODE_ENV}`;
-    }
+    const path = `${__dirname}/../../../.env`;
+    // Use this to change env following NODE_ENV
+    // if (this.NODE_ENV) {
+    //   path = `${path}.${this.NODE_ENV}`;
+    // }
 
     dotenv.config({
       path,

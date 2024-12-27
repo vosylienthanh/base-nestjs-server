@@ -23,23 +23,23 @@ new-item -itemtype junction -path "./node_modules" -target "../lib/server/node_m
 - Create empty migration file:
 
 ```bash
-npx typeorm-ts-node-commonjs migration:create ./src/migrations/name
+yarn typeorm-ts-node-commonjs migration:create ./src/migrations/name
 ```
 
 - Generate migration file:
 
 ```bash
-npx typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:generate ./src/migrations/init_schema
+yarn typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:generate ./src/migrations/init_schema
 ```
 
 - Run migration:
 
 ```bash
-npx typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:run
+yarn typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:run
 ```
 
 - Revert migration:
 
 ```bash
-npx typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:revert
+yarn typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:revert
 ```
