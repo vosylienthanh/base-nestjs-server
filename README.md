@@ -18,6 +18,28 @@ Run this command on windows
 new-item -itemtype junction -path "./node_modules" -target "../lib/server/node_modules"
 ```
 
-## Setup typeORM
+## Run migration
 
-1. Install package
+- Create empty migration file:
+
+```bash
+npx typeorm-ts-node-commonjs migration:create ./src/migrations/name
+```
+
+- Generate migration file:
+
+```bash
+npx typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:generate ./src/migrations/init_schema
+```
+
+- Run migration:
+
+```bash
+npx typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:run
+```
+
+- Revert migration:
+
+```bash
+npx typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:revert
+```
