@@ -2,6 +2,7 @@ import { Global, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigServiceModule } from '../config/config-service.module';
 import { ConfigService } from '../config/config.service';
+import { HelperModule } from '../helper/helper.module';
 
 @Global()
 @Module({
@@ -16,9 +17,9 @@ import { ConfigService } from '../config/config.service';
       imports: [ConfigServiceModule],
       inject: [ConfigService],
     }),
-
     ConfigServiceModule,
+    HelperModule,
   ],
-  exports: [TypeOrmModule, ConfigServiceModule],
+  exports: [TypeOrmModule, ConfigServiceModule, HelperModule],
 })
 export class SharedModule {}
