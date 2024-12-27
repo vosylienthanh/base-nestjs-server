@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { APP_GUARD } from '@nestjs/core';
 import { ThrottlerModule } from '@nestjs/throttler';
-import { ThrottlerBehindProxyGuard } from '../../guards/throttle.guard';
+import { ThrottlerByIpGuard } from '../../guards/throttle-by-ip.guard';
 import { HealthCheckController } from './health-check.controller';
 
 @Module({
@@ -17,7 +17,7 @@ import { HealthCheckController } from './health-check.controller';
   providers: [
     {
       provide: APP_GUARD,
-      useClass: ThrottlerBehindProxyGuard,
+      useClass: ThrottlerByIpGuard,
     },
   ],
 })
