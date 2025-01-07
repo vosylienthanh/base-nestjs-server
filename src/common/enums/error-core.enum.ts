@@ -1,0 +1,4 @@
+export enum ErrorCode {
+  INTERNAL_SERVER_ERROR = 'INTERNAL_SERVER_ERROR',
+  BAD_REQUEST = 'BAD_REQUEST',
+}
