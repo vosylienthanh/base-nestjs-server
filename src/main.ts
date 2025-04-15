@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { GlobalDBErrorFilter } from './common/filters/global-db-error.filter';
+import metadata from './metadata';
 import { configService } from './modules/config/config.service';
 
 async function bootstrap() {
@@ -25,7 +26,11 @@ async function bootstrap() {
       .setDescription('<Service name> API description')
       .setVersion('1.0')
       .build();
-    const documentFactory = () => SwaggerModule.createDocument(app, config);
+    const documentFactory = () =>
+      SwaggerModule.createDocument(app, config, {
+        autoTagControllers: true,
+      });
+    SwaggerModule.loadPluginMetadata(metadata);
     SwaggerModule.setup('docs', app, documentFactory);
   }
   await app.listen(configService.PORT);

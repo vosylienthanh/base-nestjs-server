@@ -89,6 +89,10 @@ export class ConfigService {
         : null,
     };
   }
+
+  get SALT_ROUNDS(): number {
+    return Number(process.env.SALT_ROUNDS || 13);
+  }
 }
 
 export const configService = new ConfigService();
