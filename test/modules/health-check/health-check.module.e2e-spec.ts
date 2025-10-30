@@ -1,6 +1,6 @@
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { generateTestApp } from '../../utils/app.utils';
+import request from 'supertest';
+import { generateTestApp } from '../../utils/app.utils.js';
 
 describe('HealthCheckController (e2e)', () => {
   let app: INestApplication;
