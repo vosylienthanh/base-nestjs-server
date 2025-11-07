@@ -1,6 +1,5 @@
 import { Global } from '@nestjs/common';
 import * as dotenv from 'dotenv';
-import { DataSourceOptions } from 'typeorm';
 
 @Global()
 export class ConfigService {
@@ -64,30 +63,12 @@ export class ConfigService {
     return process.env.DATABASE_SSL === 'true';
   }
 
-  get POSTGRES_CONFIG(): DataSourceOptions {
-    return {
-      type: 'postgres',
-      host: this.DATABASE_HOST,
-      port: this.DATABASE_PORT,
-      username: this.DATABASE_USERNAME,
-      password: this.DATABASE_PASSWORD,
-      database: this.DATABASE_NAME,
-      schema: this.DATABASE_SCHEMA,
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
-      synchronize: false,
-      migrationsRun: true,
-      logging: false,
-      migrations: [__dirname + '/../../migrations/**/*{.ts,.js}'],
-      connectTimeoutMS: this.POSTGRES_CONNECTION_TIMEOUT,
-      ssl: this.DATABASE_SSL,
-      extra: this.DATABASE_SSL
-        ? {
-            ssl: {
-              rejectUnauthorized: false,
-            },
-          }
-        : null,
-    };
+  get SALT_ROUNDS(): number {
+    return Number(process.env.SALT_ROUNDS || 13);
+  }
+
+  get ENCRYPTION_KEY(): string {
+    return process.env.ENCRYPTION_KEY || '';
   }
 }
 

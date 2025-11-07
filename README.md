@@ -31,29 +31,3 @@ For other code editor, please check at [this page](https://yarnpkg.com/getting-s
 ```bash
 yarn upgrade-interactive
 ```
-
-## Run migration
-
-- Create empty migration file:
-
-```bash
-yarn typeorm-ts-node-commonjs migration:create ./src/migrations/name
-```
-
-- Generate migration file:
-
-```bash
-yarn typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:generate ./src/migrations/init_schema
-```
-
-- Run migration:
-
-```bash
-yarn typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:run
-```
-
-- Revert migration:
-
-```bash
-yarn typeorm-ts-node-commonjs -d ./src/modules/config/postgres.config.ts migration:revert
-```

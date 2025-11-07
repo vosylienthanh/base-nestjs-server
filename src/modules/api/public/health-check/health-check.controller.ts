@@ -1,5 +1,4 @@
 import { Controller, Get } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
 import { Throttle } from '@nestjs/throttler';
 
 @Throttle({
@@ -9,7 +8,6 @@ import { Throttle } from '@nestjs/throttler';
   },
 })
 @Controller('/api/public/health')
-@ApiTags('Public Health check')
 export class HealthCheckController {
   @Get()
   healthCheck(): string {

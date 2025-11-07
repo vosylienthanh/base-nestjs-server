@@ -1,12 +1,19 @@
-import { ValidationPipe } from '@nestjs/common';
+import { ConsoleLogger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { GlobalDBErrorFilter } from './common/filters/global-db-error.filter';
-import { configService } from './modules/config/config.service';
+import { AppModule } from './app.module.js';
+import { GlobalErrorFilter } from './common/filters/global-error.filter.js';
+import { ResponseTransformInterceptor } from './common/interceptors/response-transform.interceptor.js';
+import { configService } from './modules/config/config.service.js';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: new ConsoleLogger({
+      colors: false,
+      timestamp: false,
+      compact: true,
+      json: true,
+    }),
+  });
   app.enableCors({
     origin: '*',
   });
@@ -16,18 +23,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  app.useGlobalFilters(new GlobalDBErrorFilter());
+  app.useGlobalInterceptors(new ResponseTransformInterceptor());
+  app.useGlobalFilters(new GlobalErrorFilter());
 
-  if (configService.IS_DEVELOPMENT_MODE) {
-    // TODO: Replace with <Service name>
-    const config = new DocumentBuilder()
-      .setTitle('<Service name>')
-      .setDescription('<Service name> API description')
-      .setVersion('1.0')
-      .build();
-    const documentFactory = () => SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('docs', app, documentFactory);
-  }
   await app.listen(configService.PORT);
 }
 bootstrap();
